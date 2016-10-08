@@ -14,8 +14,8 @@ export default ({results}) => {
     const tookInSeconds = results.took / 1000
 
     return (
-        <div className="row  job-results">
-            <div className="hidden-sm col-md-3">
+        <div className="row job-results">
+            <div className="hidden-xs hidden-sm col-md-3">
                 {aggregatedResults}
             </div>
             <div className="col-sm-12 col-md-8">

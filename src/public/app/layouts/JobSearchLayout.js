@@ -3,6 +3,7 @@ import JobSearchInput from '../components/SearchInput'
 import JobSearchResults from '../components/DisplayResults'
 import AppActions from '../actions/AppActions'
 import JobStore from '../stores/JobStore'
+import NoJobResult from '../components/NoJobResult'
 
 
 class JobSearchLayout extends React.Component {
@@ -15,12 +16,18 @@ class JobSearchLayout extends React.Component {
         const q = this.props.location.query.q || ''
         this.setState({q})
         window.actions = AppActions
+        // add change listener
         JobStore.addChangeListener(this.onResultsUpdate.bind(this))
+        // search a job on mount
         AppActions.searchJob(q)
     }
 
     onQueryChange(q) {
+        //  update state on change
+        this.setState({q})
+        // change context path and query
         this.context.router.push({pathname: '/search', query: {q: q}})
+        // search a job
         AppActions.searchJob(q)
     }
 
@@ -30,8 +37,10 @@ class JobSearchLayout extends React.Component {
     }
 
     render() {
-        let jobSearchResults =  <div>noresult</div>
-        if(!!this.state.results) {
+        let jobSearchResults =  <NoJobResult q={this.state.q}/>
+        if( !!this.state.results &&
+            !!this.state.results.count &&
+            this.state.results.count > 0) {
             jobSearchResults = <JobSearchResults results={this.state.results}/>
         }
         return (
