@@ -10,21 +10,38 @@ module.exports = {
     // devtool: "source-map",
     module: {
         loaders: [
+            // BABEL LOADER
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
                 loaders: ["babel"]
+            },
+            // IMAGE LOADER
+            {
+                test: /\.jpe?g$|\.gif$|\.png$|\.svg$/,
+                exclude: /node_modules|assets\/fonts/,
+                loader: "file"
+            },
+            // FONT LOADER
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                exclude: /assets\/images/,
+                loader: 'file?name=[name].[ext]'
             },
             //SASS
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract('css!sass')
             }
-            ,{ test: /\.jpe?g$|\.gif$|\.png$|\.svg$/, loader: "file" }
         ]
     },
     // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
     plugins: [
         new ExtractTextPlugin("bundle.css")
-    ]
+    ],
+    devServer: {
+        publicPath: './public',
+        contentBase: './public',
+        historyApiFallback: true
+    }
 };

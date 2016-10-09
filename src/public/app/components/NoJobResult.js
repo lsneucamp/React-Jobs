@@ -1,22 +1,5 @@
 import React from 'react'
 
-
-class JobSearchResult extends React.Component {
-    constructor(props) {
-        super(prosp)
-    }
-
-    render() {
-        return (
-            <div className="row job-result" ref='row'>
-                <div className="col-sm-12 text-center">
-                    <h4>Sorry, no job found!</h4>
-                </div>
-            </div>
-        )
-    }
-}
-
 export default ({q}) => {
     return (
         <div className="row" >

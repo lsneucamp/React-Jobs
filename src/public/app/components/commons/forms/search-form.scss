@@ -1,0 +1,62 @@
+@import "../../../utils/styles/default";
+
+/* component variables*/
+$border-radius : 5px;
+$border-color: #cccccc;
+
+@mixin border-shadows() {
+  border-color: darken($border-color, 10%);
+  $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten($border-color, 20%);
+  @include box-shadow($shadow);
+}
+
+.search-form {
+  background: $body-bg;
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.search-form__input {
+  background: $body-bg;
+  @include border-left-radius($border-radius);
+  border: 1px solid $border-color;
+  box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+  box-sizing: border-box;
+  font-size: 14px;
+  height: 33px;
+  margin: 0px;
+  padding: 6px 12px;
+  position: relative;
+  width: 100%;
+  writing-mode: horizontal-tb;
+  z-index: 2;
+  &:focus {
+    @include border-shadows
+  }
+}
+
+.search-form__span {
+  box-sizing: border-box;
+  display: table-cell;
+  font-size: 0px;
+  position: relative;
+  vertical-align: middle;
+  width: 1%;
+}
+
+.search-form__button {
+  @include border-right-radius($border-radius);
+  background: $body-bg;
+  font-size: $font-size-base;
+  border: 1px solid $border-color;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  height: 33px;
+  margin: 0px 0px 0px -1px;
+  padding: 6px 12px;
+
+  &:focus {
+    @include border-shadows
+  }
+}

@@ -1,4 +1,6 @@
-import css from './style/app.scss';
+// import once styles
+import css from './app/utils/styles/_font-awesome.scss'
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
