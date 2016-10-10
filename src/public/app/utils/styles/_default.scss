@@ -1,5 +1,20 @@
 @import "global.variables";
+
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "global.mixin";
+
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/grid";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
 
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/type";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.color-inverse {
+  color: lighten(invert($text-color), 15%);
+}

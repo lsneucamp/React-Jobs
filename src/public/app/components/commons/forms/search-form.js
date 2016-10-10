@@ -1,23 +1,50 @@
 import css from './search-form.scss'
 import React from 'react'
 
-export default class TextInput extends React.Component {
+class SearchForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-        console.log(css)
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    submitHandler(e) {
+        e.preventDefault()
+        this.props.onSubmit(e.target._input.value)
     }
 
     render() {
-        return (
-            <form className="search-form" >
-                <input className="search-form__input" type="text"/>
-                <span  className="search-form__span">
-                    <button  className="search-form__button fa fa-search" type="submit">
+        const {isLoading, inputValue, placeholder} = this.props
 
+        let classes = ``
+        if (isLoading)
+            classes += " fa fa-refresh fa-spin"
+        else
+            classes += " fa fa-search"
+
+        return (
+            <form className="search-form" onSubmit={this.submitHandler.bind(this)}>
+                <input defaultValue={inputValue} id="_input" placeholder={placeholder}
+                       className="search-form__input" type="text"/>
+                <span className="search-form__span">
+                    <button className="search-form__button" type="submit">
+                        <i className={classes}></i>
                     </button>
                 </span>
             </form>
         );
     }
 }
+
+SearchForm.contextTypes = {
+    router: React.PropTypes.object
+};
+
+SearchForm.propTypes = {
+    onSubmit: React.PropTypes.func.isRequired,
+    placeholder: React.PropTypes.string,
+    inputValue: React.PropTypes.string,
+    isLoading: React.PropTypes.bool.isRequired
+};
+
+
+export default SearchForm;

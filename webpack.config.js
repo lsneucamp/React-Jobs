@@ -1,20 +1,24 @@
 var path = require('path');
+
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
-    context: __dirname + "/src/public",
-    entry: './app.js',
-    output: {
-        filename: "bundle.js",
-        path: __dirname + "/public/assets",
+    devtool: 'eval',
+    entry: {
+        app: './src/public/app'
     },
-    // devtool: "source-map",
+    output: {
+        path: path.resolve(__dirname, "public/assets"),
+        publicPath: "/assets/",
+        filename: "bundle.js"
+    },
     module: {
         loaders: [
             // BABEL LOADER
             {
                 test: /\.js?$/,
-                exclude: /node_modules/,
-                loaders: ["babel"]
+                include: path.join(__dirname, 'src'),
+                loaders: ['react-hot', 'babel']
             },
             // IMAGE LOADER
             {
@@ -38,10 +42,5 @@ module.exports = {
     // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
     plugins: [
         new ExtractTextPlugin("bundle.css")
-    ],
-    devServer: {
-        publicPath: './public',
-        contentBase: './public',
-        historyApiFallback: true
-    }
+    ]
 };

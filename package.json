@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch-dev": "webpack-dev-server --progress --colors",
+    "watch-dev": "webpack-dev-server --content-base public/ --hot --progress --colors",
     "watch": "webpack -w",
     "build": "webpack -p",
     "start": "node server/index.js",
@@ -30,11 +30,12 @@
     "node-sass": "^3.4.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-hot-loader": "^1.3.0",
     "react-router": "^2.8.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "^1.9.5",
+    "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
     "async": "^2.0.1",

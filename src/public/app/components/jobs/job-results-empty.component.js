@@ -5,7 +5,7 @@ export default ({q}) => {
         <div className="row" >
             <div className="col-sm-12">
                 <br/><br/><br/><br/><br/>
-                <h4>Sorry, :( <br/>
+                <h4>Sorry, :a <br/>
                     <small>
                         your search <b>"{q}"</b> didn't match with any job!
                     </small>
