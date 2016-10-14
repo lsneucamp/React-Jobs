@@ -20,8 +20,9 @@ export default class JobSearchLayout extends React.Component {
     }
 
     componentWillMount() {
-        // retrieve query parameter
-        const q = this.props.location.query.q || ''
+        // retrieve query parameter OR
+        // if q is empty set a default test for demo
+        const q = this.props.location.query.q || 'software developer'
         this.setState({q})
 
         JobStore.addChangeListener(this.refreshResults.bind(this))
@@ -40,7 +41,8 @@ export default class JobSearchLayout extends React.Component {
     }
 
     onSubmit(q) {
-        console.debug("JobSearchLayout.onSubmit", q)
+        // update q state
+        this.setState({q})
         // update state to loading
         this.setState({isLoading: true})
         // change context path and query

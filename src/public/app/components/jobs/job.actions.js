@@ -2,7 +2,8 @@ import axios from 'axios'
 import JobConstants from './job.constants'
 import {dispatcher} from '../../dispatchers/AppDispatcher.js'
 
-const url = 'http://localhost:8000'
+console.debug("aaatip")
+const url = API_URL
 
 export default {
     searchJob(q){

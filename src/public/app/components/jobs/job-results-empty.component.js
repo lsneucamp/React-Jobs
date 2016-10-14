@@ -1,13 +1,14 @@
 import React from 'react'
 
-export default ({q}) => {
+export default (props) => {
     return (
+
         <div className="row" >
             <div className="col-sm-12">
                 <br/><br/><br/><br/><br/>
-                <h4>Sorry, :a <br/>
+                <h4>Sorry, <br/>
                     <small>
-                        your search <b>"{q}"</b> didn't match with any job!
+                        your search <b>"{props.q}"</b> didn't match with any job!
                     </small>
                 </h4>
                 <p>Suggestions:</p>

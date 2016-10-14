@@ -1,6 +1,7 @@
 var path = require('path');
 
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var webpack = require("webpack");
 
 module.exports = {
     devtool: 'eval',
@@ -18,7 +19,7 @@ module.exports = {
             {
                 test: /\.js?$/,
                 include: path.join(__dirname, 'src'),
-                loaders: ['react-hot', 'babel']
+                loaders: ['babel']
             },
             // IMAGE LOADER
             {
@@ -41,6 +42,9 @@ module.exports = {
     },
     // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
     plugins: [
-        new ExtractTextPlugin("bundle.css")
+        new ExtractTextPlugin("bundle.css"),
+        new webpack.DefinePlugin({
+            API_URL: JSON.stringify('http://localhost:8000')
+        })
     ]
 };

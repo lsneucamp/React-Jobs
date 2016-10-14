@@ -9,7 +9,9 @@ class SearchForm extends React.Component {
 
     submitHandler(e) {
         e.preventDefault()
-        this.props.onSubmit(e.target._input.value)
+        const newValue = e.target._input.value
+        if(!!newValue && newValue.length>0)
+            this.props.onSubmit(e.target._input.value)
     }
 
     render() {

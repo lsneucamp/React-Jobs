@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:latest
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -11,5 +11,8 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-EXPOSE 4567
+# Build  public source code
+RUN npm run build
+
+EXPOSE 8000
 CMD [ "npm", "start" ]
