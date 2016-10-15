@@ -8,10 +8,7 @@ export default class GA {
 
     send(location){
         ga('send', {
-            hitType: 'pageview',
-            page: location.pathname+location.search,
-            location: window.location.origin + location.pathname,
-            title: document.title
+            hitType: 'pageview'
         })
     }
 }
