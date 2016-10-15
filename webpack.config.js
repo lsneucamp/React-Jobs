@@ -44,7 +44,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("bundle.css"),
         new webpack.DefinePlugin({
-            API_URL: JSON.stringify('http://localhost:8000')
+            GA_TRACKING_CODE: JSON.stringify(process.env.GA_JOBS_TRACKING_CODE)
         })
     ]
 };
