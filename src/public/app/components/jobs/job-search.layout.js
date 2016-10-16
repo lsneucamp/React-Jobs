@@ -15,7 +15,8 @@ export default class JobSearchLayout extends React.Component {
         this.state = {
             isLoading: false,
             results: {},
-            q: ''
+            q: '',
+            filters: {}
         }
     }
 
@@ -23,11 +24,41 @@ export default class JobSearchLayout extends React.Component {
         // retrieve query parameter OR
         // if q is empty set a default test for demo
         const q = this.props.location.query.q || 'software developer'
-        this.setState({q})
+        // get filters
+        const filters = this.mapFilters(this.props.location.query)
+
+        this.state.q = q;
+        this.state.filters = filters;
+        // set state
+        this.setState(this.state)
 
         JobStore.addChangeListener(this.refreshResults.bind(this))
         // search a job on mount
-        JobActions.searchJob(q)
+        this.search()
+    }
+
+    componentWillUpdate(){
+        console.log("componentWillUpdate", this.state)
+    }
+
+    mapFilters(query) {
+        let filters = {}
+        for (var key in query) {
+            if (query.hasOwnProperty(key) && key.startsWith('f_')) {
+                if(Array.isArray(query[key])){
+                    filters[key] = query[key]
+                } else {
+                    filters[key] = [query[key]]
+                }
+            }
+        }
+        return filters
+    }
+
+    buildQuery() {
+        let query =  this.state.filters
+        query.q = this.state.q
+        return query
     }
 
     componentWillUnmount() {
@@ -35,20 +66,37 @@ export default class JobSearchLayout extends React.Component {
     }
 
     refreshResults() {
-        const results = JobStore.getResults()
-        console.debug("JobSearchLayout.refreshResults", results)
-        this.setState({results, isLoading: false})
+        this.state.results = JobStore.getResults()
+        this.state.isLoading = false;
+        this.setState(this.state)
+    }
+
+    onAddFilter(type, newFilters) {
+        console.log("onAddFilter", type, newFilters)
+        this.state.filters[type] = newFilters
+        this.setState(this.state)
+        this.search()
     }
 
     onSubmit(q) {
+        // reset filters
+        const filters = {}
+
         // update q state
-        this.setState({q})
-        // update state to loading
-        this.setState({isLoading: true})
+        this.setState({q, filters})
+        this.search()
+    }
+
+    search() {
+        this.state.isLoading = true;
+        this.setState(this.state)
+
+        const query = this.buildQuery()
+        console.log("query", query)
         // change context path and query
-        this.context.router.push({pathname: '/search', query: {q}})
+        this.context.router.push({pathname: '/search', query: query})
         // search a job
-        JobActions.searchJob(q)
+        JobActions.searchJob(query)
     }
 
     render() {
@@ -57,7 +105,8 @@ export default class JobSearchLayout extends React.Component {
         // render results
         let results = <JobResultsEmpty q={this.state.q}/>
         if (!!this.state.results && this.state.results.count > 0)
-            results = <JobResults results={this.state.results}/>
+            results = <JobResults filters={this.state.filters} onAddFilter={this.onAddFilter.bind(this)}
+                                  results={this.state.results}/>
 
 
         return (

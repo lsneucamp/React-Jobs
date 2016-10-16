@@ -12,11 +12,11 @@ module.exports = function (router) {
 
             // filters
             // jobs
-            const jo = req.query.jo
+            const jo = req.query.f_jo
             //  companies
-            const co = req.query.co
+            const co = req.query.f_co
             // locations
-            const lo = req.query.lo
+            const lo = req.query.f_lo
 
 
             async.parallel(
@@ -68,22 +68,22 @@ module.exports = function (router) {
 const fieldBoostConfig = ["title^4", "location", "companyName", "description"];
 
 const jobSearch = function (query, page, size, filters, esClient, callback) {
-    let and = [];
+    let or = [];
 
     // add job filter
     const jobFilter = buildFilter('title.raw', filters.jo)
-    if (!!jobFilter) and.push(jobFilter)
+    if (!!jobFilter) or.push(jobFilter)
     // add company filter
     const companyFilter = buildFilter('companyName.raw', filters.co)
-    if (!!companyFilter) and.push(companyFilter)
+    if (!!companyFilter) or.push(companyFilter)
     // add company filter
     const locationFilter = buildFilter('location.raw', filters.lo)
-    if (!!locationFilter) and.push(locationFilter)
+    if (!!locationFilter) or.push(locationFilter)
 
 
     let filter = {}
-    if (and.length > 0) {
-        filter.and = and
+    if (or.length > 0) {
+        filter.or = or
     }
 
     const body = {
@@ -172,9 +172,9 @@ const jobAggregationSearch = function (query, esClient, callback) {
     }).then(function (response) {
         let aggs = []
 
-        aggs.push({name: 'Jobs', buckets: response.aggregations['group_by_title'].buckets})
-        aggs.push({name: 'Locations', buckets: response.aggregations['group_by_location'].buckets})
-        aggs.push({name: 'Companies', buckets: response.aggregations['group_by_company'].buckets})
+        aggs.push({name: 'Jobs',type:'f_jo', buckets: response.aggregations['group_by_title'].buckets})
+        aggs.push({name: 'Locations',type:'f_lo', buckets: response.aggregations['group_by_location'].buckets})
+        aggs.push({name: 'Companies',type:'f_co', buckets: response.aggregations['group_by_company'].buckets})
 
         callback(null, aggs)
 

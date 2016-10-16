@@ -13,10 +13,6 @@ const GA = new GoogleAnalytics(GA_TRACKING_CODE);
 
 
 const onRouteChange = (prevState, nextState, replace, callback)=>{
-    console.log("prevState",prevState)
-    console.log("nextState",nextState)
-    console.log("replace",replace)
-    console.log("callback",callback)
     GA.send(nextState.location)
     callback()
 }

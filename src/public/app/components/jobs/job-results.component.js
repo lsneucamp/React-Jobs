@@ -17,7 +17,8 @@ export default class JobResults extends React.Component {
         const {took,count,pages,page,size,results,aggs} = this.props.results
 
         const aggsComponents = aggs.map((agg,index)=>{
-             return <JobAggregator key={index} agg={agg} />
+             const filters  = this.props.filters[agg.type]
+             return <JobAggregator filters={filters} onAddFilter={this.props.onAddFilter} key={index} agg={agg} />
         })
 
         const resultComponents = results.map((result,index)=>{
@@ -39,6 +40,8 @@ export default class JobResults extends React.Component {
 }
 
 JobResults.propTypes = {
+    onAddFilter:React.PropTypes.func,
+    filters:React.PropTypes.object,
     results: React.PropTypes.shape({
         took: React.PropTypes.number.isRequired,
         count: React.PropTypes.number.isRequired,
