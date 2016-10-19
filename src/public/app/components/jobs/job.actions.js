@@ -8,7 +8,7 @@ export default {
             const {data} = response
             dispatcher({actionType:JobConstants.SEARCH_JOB,data})
         },function (err) {
-            console.err(err)
+            console.error(err)
         })
     }
 }
