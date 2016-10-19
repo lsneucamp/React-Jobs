@@ -13,7 +13,9 @@ export default class JobSearchLayout extends React.Component {
 
     constructor(props) {
         super(props)
-        const query = this.buildQuery(props)
+        let query = this.buildQuery(props)
+        // set default query term
+        query.q = 'software developer'
         this.state = {
             isLoading: false,
             query
@@ -102,13 +104,11 @@ export default class JobSearchLayout extends React.Component {
         const searchFormPlaceholder = "Type a term and press enter to search a job (e.g. software) "
 
         // render results
-        console.log('isloading',this.state.isLoading)
         let results = this.state.isLoading?<div></div>:<JobResultsEmpty q={this.state.query.q}/>
         if (!!this.state.results && this.state.results.count > 0)
             results = <JobResults filters={this.state.query} onAddFilter={this.onAddFilter.bind(this)}
                                   results={this.state.results}/>
 
-        console.log('isloading',results,this.state.isLoading)
 
         return (
             <div>
