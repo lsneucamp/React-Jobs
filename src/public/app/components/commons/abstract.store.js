@@ -22,12 +22,10 @@ export default class AbstractStore extends EventEmitter {
   }
 
   addChangeListener(cb) {
-    console.log('addChangeListener',cb)
     this.on(EVENT_CHANGE, cb)
   }
 
   removeChangeListener(cb) {
-    console.log('removeChangeListener',cb)
     this.removeListener(EVENT_CHANGE, cb);
   }
 }

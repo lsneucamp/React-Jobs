@@ -4,8 +4,6 @@ import {dispatcher} from '../../dispatchers/AppDispatcher.js'
 
 export default {
     searchJob(queryParams){
-
-        console.debug("JobAction.searchJob",queryParams)
         axios.get(`/api/jobs`,{params:queryParams}).then(function(response){
             const {data} = response
             dispatcher({actionType:JobConstants.SEARCH_JOB,data})

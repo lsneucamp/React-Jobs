@@ -26,7 +26,6 @@ export default class JobAggregator extends React.Component {
     }
 
     onChange(e) {
-        console.log('onChange',e.target.value)
         this.state.filters = this.toggle(e.target.value)
         this.setState(this.state)
         this.props.onAddFilter(this.state.type,this.state.filters)

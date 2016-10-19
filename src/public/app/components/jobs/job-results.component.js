@@ -17,7 +17,7 @@ export default class JobResults extends React.Component {
         const {took,count,pages,page,size,results,aggs} = this.props.results
 
         const aggsComponents = aggs.map((agg,index)=>{
-             const filters  = this.props.filters[agg.type]
+             let filters  = this.props.filters[agg.type]
              return <JobAggregator filters={filters} onAddFilter={this.props.onAddFilter} key={index} agg={agg} />
         })
 

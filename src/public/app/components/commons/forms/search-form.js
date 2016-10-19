@@ -4,7 +4,7 @@ import React from 'react'
 class SearchForm extends React.Component {
 
     constructor(props, context) {
-        super(props, context);
+        super(props);
     }
 
     submitHandler(e) {

@@ -33,8 +33,9 @@ module.exports = function (router) {
                         return next(err)
 
                     results.pageResult.aggs = results.searchAggregation
-
-                    res.json(results.pageResult)
+                    setTimeout(function(){
+                        res.json(results.pageResult)
+                    },1000)
 
                 }
             )
